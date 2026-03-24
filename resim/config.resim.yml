@@ -1,0 +1,32 @@
+# This config file describes a very basic metrics config.
+version: 1
+
+# One topic. Emit data to this topic via
+# test.emit("position", {"x": 1, "y": 2}, timestamp=1234)
+topics:
+  position:
+    schema:
+      x: float
+      y: float
+
+# One test metric (computed for each individual test) and one batch 
+# metric (computed across all test emissions)
+metrics:
+  y over time:
+    type: test
+    query_string: select 'y',timestamp,y from position order by timestamp
+    description: y over time
+    template_type: system
+    template: line
+  min/avg/max:
+    type: batch
+    query_string: select min(y) as min, avg(y) as avg, max(y) as max from position
+    template_type: system
+    template: table
+
+# A metrics set we'll reference when creating the batch
+metrics sets:
+  my metrics:
+    metrics:
+      - y over time
+      - min/avg/max
