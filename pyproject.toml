@@ -6,5 +6,5 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "python-dotenv>=1.2.2",
-    "resim-sdk>=1.1.0",
+    "resim-sdk>=1.2.0",
 ]
