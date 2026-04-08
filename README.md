@@ -16,7 +16,7 @@ pip install -r requirements.txt
 uv sync
 ```
 
-## Running Tests
+## Running the Example
 
 1. If you do not yet have a project in ReSim, either:
    - Visit <https://app.resim.ai/projects/create> to create one, or
