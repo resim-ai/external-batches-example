@@ -1,30 +1,18 @@
-import os
-from dotenv import load_dotenv
-from resim.sdk.auth.username_password_client import UsernamePasswordClient
+from resim.sdk.auth.device_code_client import DeviceCodeClient
 from resim.sdk.batch import Batch
 from resim.sdk.test import Test
 
-load_dotenv()
-
-
-def _require_env(name: str) -> str:
-    value = os.environ.get(name)
-    if not value:
-        raise EnvironmentError(f"Required environment variable '{name}' is not set")
-    return value
+# Change this to your ReSim project name
+PROJECT_NAME = "my resim project"
 
 
 def main():
-    project_name = _require_env("RESIM_PROJECT_NAME")
-    username = _require_env("RESIM_USERNAME")
-    password = _require_env("RESIM_PASSWORD")
-
-    client = UsernamePasswordClient(username=username, password=password)
+    client = DeviceCodeClient()  # Authenticate with ReSim
 
     # Create a batch, and run the "my metrics" metrics set against it. See config.resim.yml
     with Batch(
         client=client,
-        project_name=project_name,
+        project_name=PROJECT_NAME,
         branch="metrics-test-branch",
         metrics_set_name="my metrics",
         metrics_config_path="resim/config.resim.yml",
